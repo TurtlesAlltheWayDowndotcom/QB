@@ -1,0 +1,248 @@
+import java.text.DecimalFormat;
+
+import javax.swing.JOptionPane;
+
+public class QuarterbackRating {
+
+              public static void main(String[] args) {
+
+                            String name;
+
+                            int attemptedPasses;
+
+                            int completedPasses;
+
+                            int totalYardsGained;
+
+                            int touchdowns;
+
+                            int interceptions;
+
+                            int yardsRushing;
+
+                            int rating;
+
+                            String input;
+
+                            name = JOptionPane.showInputDialog("Quarterback name: ");
+
+                            input = JOptionPane.showInputDialog("Number of completed passes: ");
+
+                            completedPasses = Integer.parseInt(input);
+
+                            input = JOptionPane.showInputDialog("Number of attempted passes: ");
+
+                            attemptedPasses = Integer.parseInt(input);
+
+                            input = JOptionPane.showInputDialog("Number of receiving yards: ");
+
+                            totalYardsGained = Integer.parseInt(input);
+
+                            input = JOptionPane.showInputDialog("Number of touchdowns: ");
+
+                            touchdowns = Integer.parseInt(input);
+
+                            input = JOptionPane.showInputDialog("Number of interceptions: ");
+
+                            interceptions = Integer.parseInt(input);
+
+                            input = JOptionPane.showInputDialog("Number of yards rushed: ");
+
+                            yardsRushing = Integer.parseInt(input);
+
+                            // finding each rating and adding to get total rating
+
+                            rating = completionsPercentage(completedPasses, attemptedPasses);
+
+                            rating += averageYardsGain(totalYardsGained, attemptedPasses);
+
+                            rating += touchdowns(touchdowns, attemptedPasses);
+
+                            rating += interceptions(interceptions, attemptedPasses);
+
+                            rating += yardsRushing(yardsRushing);
+
+                            // displaying output
+
+                            displayOutput(attemptedPasses, name, rating, completedPasses,
+
+                                                        totalYardsGained, touchdowns, interceptions, yardsRushing);
+
+              }
+
+              public static int completionsPercentage(int completedPasses,
+
+                                          int attemptedPasses) {
+
+                            double completedPercentage = (double) completedPasses / attemptedPasses;
+
+                            // converting to percentage (out of 100)
+
+                            completedPercentage *= 100;
+
+                            // subtracting 30, multiplying with 0.05 and 8
+
+                            completedPercentage -= 30;
+
+                            completedPercentage *= 0.05 * 8;
+
+                            int percentage = (int) completedPercentage;
+
+                            // wrapping percentage inside boundary
+
+                            if (percentage < 0) {
+
+                                          percentage = 0;
+
+                            } else if (percentage > 20) {
+
+                                          percentage = 20;
+
+                            }
+
+                            return percentage;
+
+              }
+
+              public static int averageYardsGain(int yards, int attempts) {
+
+                            double percentage = (double) yards / attempts;
+
+                            // not multiplying by 100 since the question specifies just division
+
+                            // only
+
+                            percentage -= 3;
+
+                            percentage *= 0.25 * 9;
+
+                            if (percentage < 0) {
+
+                                          percentage = 0;
+
+                            }
+
+                            if (percentage > 20) {
+
+                                          percentage = 20;
+
+                            }
+
+                            return (int) percentage;
+
+              }
+
+              public static int touchdowns(int touchdowns, int attempts) {
+
+                            double percentage = (double) touchdowns / attempts;
+
+                            // converting to percentage (out of 100), multiplying with 0.2 and then
+
+                            // 9
+
+                            percentage *= 100 * 0.2 * 9;
+
+                            if (percentage < 0) {
+
+                                          percentage = 0;
+
+                            }
+
+                            if (percentage > 20) {
+
+                                          percentage = 20;
+
+                            }
+
+                            return (int) percentage;
+
+              }
+
+              public static int interceptions(int interceptions, int attempts) {
+
+                            double percentage = (double) interceptions / attempts;
+
+                            // converting to percentage (out of 100)
+
+                            percentage *= 100;
+
+                            percentage *= 0.25;
+
+                            percentage = 2.375 - percentage;
+
+                            percentage *= 10;
+
+                            if (percentage < 0) {
+
+                                          percentage = 0;
+
+                            }
+
+                            if (percentage > 20) {
+
+                                          percentage = 20;
+
+                            }
+
+                            return (int) percentage;
+
+              }
+
+              public static int yardsRushing(int rushingYards) {
+
+                            double result = rushingYards / 5;
+
+                            //wrapping result under 20
+
+                            if (result > 20) {
+
+                                          result = 20;
+
+                            }
+
+                            return (int) result;
+
+              }
+
+              public static void displayOutput(int attemptedPasses, String name,
+
+                                          double rating, double completedPasses, double totalYardsGained,
+
+                                          double touchdowns, double interceptions, double yardsRushing) {
+
+                            DecimalFormat formatter = new DecimalFormat("#0");
+
+                            JOptionPane.showMessageDialog(
+
+                                                        null,
+
+                                                        name + "'s overall rating is " + formatter.format(rating)
+
+                                                                                    + "\nThe total completed passes is " + attemptedPasses
+
+                                                                                    + "\nThe number of completed passes "
+
+                                                                                    + formatter.format(completedPasses)
+
+                                                                                    + "\nThe number of receiving yards is "
+
+                                                                                    + formatter.format(totalYardsGained)
+
+                                                                                    + "\nThe number passing touchdowns is "
+
+                                                                                    + formatter.format(touchdowns)
+
+                                                                                    + "\nThe number of passing interceptions is "
+
+                                                                                    + formatter.format(interceptions)
+
+                                                                                    + "\nThe number of yards the quarterback rushes is "
+
+                                                                                    + formatter.format(yardsRushing));
+
+              }
+
+}
+
+/*OUTPUT*/
+
